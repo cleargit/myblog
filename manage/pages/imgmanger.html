@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box">
+    <blockquote class="layui-elem-quote title">
+        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><span>全选</span><i class="layui-icon"></i></div>
+        <button class="layui-btn upload-img" id="delect" style="margin-left: 40px"><i class="layui-icon">&#xe640;</i>删除图片</button>
+        <button class="layui-btn upload-img" id="upload" style="margin-left: 40px"><i class="layui-icon">&#xe67c;</i>上传图像</button>
+    </blockquote>
+
+</div>
+
+<form enctype="multipart/form-data" id="upload-form">
+    <input class="layui-upload-file" name="file" type="file" id="upload-file">
+</form>
+<script>
+    //上传图片
+    $('.upload-img').click(function () {
+        $('#upload-file').click()
+    })
+    $('#upload-file').change(function () {
+        var data = new FormData($("#upload-form")[0]);
+        $.ajax({
+            type: 'post',
+            data: data,
+            async:true,
+            url:'../myupload.do',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success:function(result)
+            {
+                $('#imgurl').val(result.data[0]);
+            }
+        })
+    });
+    //end
+</script>
+</body>
+</html>
